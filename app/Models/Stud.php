@@ -10,5 +10,5 @@ class Stud extends Model
 {
     use HasFactory;
     protected $table="studs";
-    protected $fillable=['firstname','lastname','email','phone'];
+    protected $fillable=['firstname','lastname','email','phone','age','gender','reporting_teacher'];
 }

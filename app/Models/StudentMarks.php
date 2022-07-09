@@ -5,9 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ActivityLog extends Model
+class StudentMarks extends Model
 {
     use HasFactory;
-    protected $table="activity_log";
-    protected $fillable=['user_id','message'];
+    protected $table="student_marks";
+    protected $fillable=['student_id','term','maths','science','history'];
 }

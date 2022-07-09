@@ -32,10 +32,7 @@ class AuthenticatedSessionController extends Controller
         $request->authenticate();
 
         $request->session()->regenerate();
-        $time=date('Y-m-d H:i:s');
 
-        $message=Auth::user()->name. " logged in at " .$time;
-        helper::activity_log(Auth::user()->id,$message);
 
         return redirect()->intended(RouteServiceProvider::HOME);
     }
@@ -48,9 +45,8 @@ class AuthenticatedSessionController extends Controller
      */
     public function destroy(Request $request)
     {
-        $time=date('Y-m-d H:i:s');
-        $message=Auth::user()->name. " logged out at " .$time;
-        helper::activity_log(Auth::user()->id,$message);
+
+
         Auth::guard('web')->logout();
 
         $request->session()->invalidate();

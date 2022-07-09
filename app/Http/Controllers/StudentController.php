@@ -14,7 +14,7 @@ class StudentController extends Controller
     public function index(){
         $students=Stud::orderBy('id','DESC')->get();
         return view('students',compact('students'));
-    } 
+    }
     public function store(Request $request){
         $id_val=$request->post('id_val');
         if(isset($id_val)){
@@ -23,11 +23,12 @@ class StudentController extends Controller
                 "lastname"=>$request->post("lastname"),
                 "email"=>$request->post("email"),
                 "phone"=>$request->post("phone"),
+                "age"=>$request->post("age"),
+                "gender"=>$request->post("gender"),
+                "reporting_teacher"=>$request->post("reporting_teacher")
 
 
             ]);
-            $message=Auth::user()->name. " edited data";
-        helper::activity_log(Auth::user()->id,$message);
             request()->session()->flash('message', 'edited succesfully');
 
             return redirect()->route('edit',$id_val);
@@ -38,13 +39,14 @@ class StudentController extends Controller
         $student->lastname=$request->lastname;
         $student->email=$request->email;
         $student->phone=$request->phone;
+        $student->age=$request->age;
+        $student->gender=$request->gender;
+        $student->reporting_teacher=$request->reporting_teacher;
         $student->save();
-        $message=Auth::user()->name. " created data";
-        helper::activity_log(Auth::user()->id,$message);
         return response()->json($student);
 
         }
-        
+
 
     }
     public function edit($id){
@@ -55,16 +57,10 @@ class StudentController extends Controller
     public function delete(Request $request){
         $id=$request->id;
         Stud::where("id",$id)->delete();
-        $message=Auth::user()->name. " deleted data";
-        helper::activity_log(Auth::user()->id,$message);
         request()->session()->flash('delete', 'deleted succesfully');
 
             return redirect()->route('dashboard');
 
 
     }
-    public function list(){
-        $results=ActivityLog::orderBy("id","DESC")->get();
-        return $results;
-    } 
 }

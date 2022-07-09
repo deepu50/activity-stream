@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\StudentController;
-
+use App\Http\Controllers\StudentMarkController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,14 +16,19 @@ use App\Http\Controllers\StudentController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('dashboard');
 });
 
-Route::get('/dashboard',[StudentController::class,'index'])->middleware(['auth'])->name('dashboard');
+Route::get('/dashboard',[StudentController::class,'index'])->name('dashboard');
 Route::post('/student_add',[StudentController::class,'store'])->name('student_add');
 Route::get('/edit/{id}',[StudentController::class,'edit'])->name('edit');
-Route::get('/list',[StudentController::class,'list'])->name('list');
 Route::post('/delete/{id}',[StudentController::class,'delete'])->name('delete');
+
+//Marks
+Route::get('/student_marks',[StudentMarkController::class,'index'])->name('student_marks');
+Route::post('/marks_add',[StudentMarkController::class,'store'])->name('marks_add');
+Route::get('/edit-marks/{id}',[StudentMarkController::class,'edit'])->name('edit-marks');
+Route::post('/marks_delete/{id}',[StudentMarkController::class,'delete'])->name('delete');
 
 
 require __DIR__.'/auth.php';

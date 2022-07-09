@@ -2,18 +2,21 @@
 namespace App;
 use Auth;
 use App\Models\ActivityLog;
-
-
-
+use App\Models\Stud;
+use App\Models\Student;
 
 class Helper
 {
-    public static function activity_log($id,$message){
-        ActivityLog::create([
-            "user_id"=>$id,
-            "message"=>$message
-        ]);
-        return true;
+    public static function get_student_name($id){
+        $name=Stud::where("id",$id)->first();
+
+        if(isset($name)){
+            return $name->firstname;
+
+        }else{
+            return false;
+
+        }
     }
 
 }
